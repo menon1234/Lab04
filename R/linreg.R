@@ -11,3 +11,4 @@ linreg$methods(plot = function(){
 })
 myObj <- linreg$new()
 myObj$plot()
+myObj$plot()
