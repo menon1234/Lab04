@@ -1,0 +1,78 @@
+---
+title: "Linear Regression Package"
+author: "Sreenand.S and Fengjuanchen"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Linear Model
+Normal linear model
+```{r setup}
+library(ggplot2)
+library(Lab04)
+```
+# Usage
+```
+linreg_mod <- linreg(formula, data)
+```
+## Arguments
+-----------   ---------------------------------------------------------------------------------
+__formula__   an object of class `"formula":` a symbolic description of the model structure to be                  fitted. The details of model specification are given under tram and in the package                 vignette.
+
+__data__      an optional data frame, list or environment (or object coercible by `as.data.frame` to a data frame) containing the variables in the model. 
+
+# Description
+A Simple Linear model of a data frame.It estimates the regression coefficients of the given formula and also the residuals, degrees of freedom , the residual variance and the variance of the regression coefficients using the using the QR decomposition method.
+
+The function returns an object of class s3 called linreg.
+
+## Value
+An object of class `Linreg`, with corresponding `coef`, `coefvariance`, `qr_coef`, `estfun`, `summary`, `print`, `plot`,`residualvariance` and `df`.
+
+## Example
+
+
+
+### QR decomposition function
+```{r}
+linreg_mod <- linreg(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
+coef(linreg_mod)
+```
+
+### Print function
+```{r}
+linreg_mod <- linreg(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
+print(linreg_mod)
+```
+
+### Summary function
+```{r}
+linreg_mod <- linreg(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
+summary(linreg_mod)
+```
+
+### lm Summary function
+```{r}
+linreg_mod <- lm(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
+summary.linreg(linreg_mod )
+```
+
+### Plot function
+```{r}
+linreg_mod <- linreg(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
+plot.linreg(linreg_mod)
+```
+
+
+

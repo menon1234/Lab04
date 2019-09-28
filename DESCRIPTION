@@ -1,14 +1,17 @@
 Package: Lab04
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Linear regression models using an S3 class and the calculations are done using QR Decomposition
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Fengjuanchen and Sreenand.S
+Maintainer: Sreenand.S <nandu.neo@gmail.com> Fengjuan Chen <fengjuanchen5@gmail.com>
+Description: The package can be used to conduct a simple regression analysis using a dataset included in the package.    It implements the calculations using the QR decomposition and the results as an s3 class.
+License: GPL-3
+Depends: R(>= 2.10)
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr
