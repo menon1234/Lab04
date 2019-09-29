@@ -108,8 +108,8 @@ plot.linreg <- function(x){
   names(data2) <- c("fitval","stadarres")
   p2 <- ggplot(data2, aes(x=fitval, y=stadarres)) + geom_point(shape=1)
   p2 <- p2+ labs(x="Fitted values", y="|Standardized residuals|") + ggtitle("Scale-Location")
-  p12<-list(p,p2)
-  return(p12)
+
+  return(p)
 
 
 
@@ -126,4 +126,3 @@ print.linreg <- function(x, digits=max(3,getOption("digits")-3)){
   invisible(x)
 
 }
-

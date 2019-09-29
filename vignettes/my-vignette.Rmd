@@ -46,7 +46,7 @@ An object of class `Linreg`, with corresponding `coef`, `coefvariance`, `qr_coef
 
 ### QR decomposition function
 ```{r}
-linreg_mod <- linreg(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
+linreg_mod<-linreg(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
 coef(linreg_mod)
 ```
 
@@ -65,14 +65,9 @@ summary(linreg_mod)
 ### lm Summary function
 ```{r}
 linreg_mod <- lm(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
-summary.linreg(linreg_mod )
+summary(linreg_mod)
 ```
 
-### Plot function
-```{r}
-linreg_mod <- linreg(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
-plot.linreg(linreg_mod)
-```
 
 
 
