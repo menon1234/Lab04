@@ -21,4 +21,17 @@ Linear regression models using an S3 class and the calculations are done using Q
  linreg_mod <-linreg(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
  summary(linreg_mod)
 
+Gives character vector containing all the names which occur in the formula.
+Model matrix created where operations are done
+Object creation
+Decomposing to Q and R matrix
+Regression coefficient
+Gives all the fitted values
+Gives residual values of Formula
+Degrees of freedom
+Gives residual variance
+converting into a scalar quantity
+Calculating variance of Regression coefficients
+T-values for each coefficient
+P-values
 }

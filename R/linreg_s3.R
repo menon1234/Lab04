@@ -11,26 +11,33 @@
 #'  summary(linreg_mod)
 #'
 linreg <- function(formula, data){
+  #'Gives character vector containing all the names which occur in the formula.
   Z <- all.vars(formula)
   for(i in 1:length(Z)){
     if(!(Z[i] %in% names(data))) stop("wrong column name!")
   }
-
+  #'Model matrix created where operations are done
   X <- model.matrix(formula,data)
 
   y <- Z[1]
 
   cl <- match.call()
-
+  #'Object creation
   lnrg <- list()
   class(lnrg) <- "linreg"
-
+  #'Decomposing to Q and R matrix
   new_qr_x <- qr(X)
+  #'Regression coefficient
   lnrg$regcoe <- solve(qr.R(new_qr_x)) %*% t(qr.Q(new_qr_x)) %*% data[,y]
+  #'Gives all the fitted values
   lnrg$fitval <- qr.fitted(new_qr_x,data[,y])
+  #'Gives residual values of Formula
   lnrg$residu <- qr.resid(new_qr_x,data[,y])
+  #'Degrees of freedom
   lnrg$degfre <- nrow(data)-ncol(X)
+  #'Gives residual variance
   lnrg$resvar <- (t(lnrg$residu) %*% lnrg$residu) /lnrg$degfre
+  #'converting into a scalar quantity
   sca_resvar <- lnrg$resvar[1,1]
 
   regcoemat1 <- chol2inv(qr.R(new_qr_x))
@@ -38,14 +45,15 @@ linreg <- function(formula, data){
   for (i in 1:nrow(regcoemat1)) {
     regcoemat2[i] <- regcoemat1[i,i]
   }
-
+  #'Calculating variance of Regression coefficients
   lnrg$varregcoe <- regcoemat2 * sca_resvar
-
+  #'T-values for each coefficient
   tvalue <- vector(length = nrow(lnrg$regcoe))
   for (i in 1:nrow(lnrg$regcoe)) {
     tvalue[i] <- lnrg$regcoe[i,1]/sqrt(lnrg$varregcoe[i])
   }
   lnrg$tval <- tvalue
+  #'P-values
   lnrg$pval <- pt(abs(lnrg$tval),lnrg$degfre, lower.tail = FALSE)
   lnrg$call <- cl
 
@@ -60,6 +68,8 @@ resid<- function(x){
 pred<- function(x){
   return(x$fitval)
 }
+
+#'Coefficient Function
 coef.linreg <- function(x){
   named_coe <- vector(length = length(x$regcoe))
   vector_name <- vector(length = length(x$regcoe))
@@ -71,6 +81,7 @@ coef.linreg <- function(x){
   return(named_coe)
 }
 
+#'Summary Function
 summary.linreg <- function(x){
   if(length(coef(x))){
     cat("Coefficients:\n")
@@ -87,7 +98,7 @@ summary.linreg <- function(x){
   else cat("No coefficients\n")
 }
 
-
+#'Plot Funtion
 plot.linreg <- function(x){
   data1 <- cbind(x$fitval,x$residu)
   data1 <- as.data.frame(data1)
@@ -108,13 +119,14 @@ plot.linreg <- function(x){
   names(data2) <- c("fitval","stadarres")
   p2 <- ggplot(data2, aes(x=fitval, y=stadarres)) + geom_point(shape=1)
   p2 <- p2+ labs(x="Fitted values", y="|Standardized residuals|") + ggtitle("Scale-Location")
-
-  return(p)
+  p12<-list(p,p2)
+  return(p12)
 
 
 
 }
 
+#'Print function
 print.linreg <- function(x, digits=max(3,getOption("digits")-3)){
   cat("\nCall:\n", deparse(x$call),"\n\n", sep = "")
   if(length(coef(x))){
