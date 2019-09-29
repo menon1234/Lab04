@@ -1,9 +1,6 @@
 language: r
 cache: packages
 
-install:
-- R -e 'devtools::install_deps(dep = T)'
-
 script:
 - R CMD build .
 - R CMD check *tar.gz
