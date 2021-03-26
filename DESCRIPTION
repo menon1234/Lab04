@@ -1,4 +1,4 @@
-Package: Lab04
+Package: R-S3 with QRDecomposition
 Type: Package
 Title: Linear regression models using an S3 class and the calculations are done using QR Decomposition
 Version: 0.1.0
